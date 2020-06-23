@@ -1,15 +1,11 @@
 const router = require('express').Router()
-const Store_details = require('../models/detail');
-const CourseList = require('../models/list_to_store')
-const Courses = require('../models/courses')
-const util = require('util')
+const Courses = require('../models/Courses.model');
 
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-function clean(s){ 
-    return s.replace(/[\n\r\t]/g, ''); 
-}
+const clean = require('../utils/clean')
+const getDetails = require('../utils/get_details');
 
 
 /*
@@ -20,9 +16,9 @@ router.get('/courses', async (req, res) => {
     try {
         let courses = {}
         if(req.query['q']) {
-            
+            courses = await Courses.fuzzySearch(req.query['q'])
         } else {
-            courses = await Store_details.find({});
+            courses = await Courses.find({});
         }
         res.json(courses);
     }catch(error) {
@@ -37,7 +33,7 @@ router.get('/courses', async (req, res) => {
 */
 router.get('/course/:id', async (req, res) => {
     const _id = req.params.id
-    const details = await Store_details.findById(_id)
+    const details = await Courses.findById(_id)
    
     const url=details.link
 
@@ -91,5 +87,14 @@ router.delete('/course/delete/:id', async (req,res) =>{
     }
 })
 
+
+/*
+    METHOD:   POST <ADD COURSE> 
+    ENDPOINT: api/admin
+*/
+router.post('/admin',async (req, res) =>{
+    let { link } = req.body;
+    res.send(getDetails(link))
+})
 
 module.exports =  router

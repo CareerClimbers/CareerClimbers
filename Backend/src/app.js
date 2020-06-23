@@ -9,7 +9,7 @@ const testJS = require('./utils/test.js');
 //const getData = require('./utils/test.js')
 //------------
 const List = require('./models/list_to_store');
-const Store_details = require('./models/detail')
+const Store_details = require('./models/Courses.model')
 //-----------
 const request = require('request');
 const cheerio = require('cheerio');
