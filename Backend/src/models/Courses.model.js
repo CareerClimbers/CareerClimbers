@@ -7,15 +7,16 @@ const CourseSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  name:{
+  title:{
     type:String,
     required:true
   },
   link:{
     type:String,
-    required:true
+    required:true,
+    unique: true
   },
-  tag: String,
+  tag: [{type:String}],
   description: String,
   duration: String,
   instructor: String,
@@ -25,7 +26,7 @@ const CourseSchema = new mongoose.Schema({
 
 
 CourseSchema.plugin(mongoose_fuzzy_searching, { fields : [
-  'name',
+  'title',
   'tag',
   'instructor'
 ]})

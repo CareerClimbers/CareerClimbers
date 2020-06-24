@@ -1,0 +1,5 @@
+export const GET_COURSES = 'GET_COURSES' 
+export const GET_POPULAR_COURSES = 'GET_POPULAR_COURSES'
+
+export const SET_LOADING = 'SET_LOADING'
+export const REMOVE_LOADING = 'REMOVE_LOADING'

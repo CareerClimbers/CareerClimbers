@@ -17,7 +17,6 @@ module.exports = (link) => {
             }
 
             let image = $('.introduction-asset img').attr('src') || $('[data-purpose="introduction-asset"] img').attr('src') || 'fallback';
-            
             let duration = clean($('span[data-purpose="video-content-length"]').text());
             let rating = Number($('span[id*="rate-count-value--"]').first().text()) ;
             let instructor = clean($('a.instructor-links__link').first().text());

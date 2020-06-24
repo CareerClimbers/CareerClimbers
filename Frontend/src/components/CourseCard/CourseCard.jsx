@@ -1,7 +1,7 @@
 import React from 'react'
 import {Rate} from 'antd'
 
-export default ({src, title, rating, creator}) => {
+export default ({src, title, rating}) => {
     return (
         <div className='card'>
             <img src={src} alt={title}/>
@@ -10,7 +10,6 @@ export default ({src, title, rating, creator}) => {
                     {title}
                 </div>
                 <Rate disabled allowHalf defaultValue={rating}/>
-                <div className='small'>By {creator}</div>
             </div>
         </div>
     )

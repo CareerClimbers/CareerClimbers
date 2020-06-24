@@ -5,7 +5,6 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 
 const clean = require('../utils/clean')
-const getDetails = require('../utils/get_details');
 
 
 /*
@@ -16,11 +15,11 @@ router.get('/courses', async (req, res) => {
     try {
         let courses = {}
         if(req.query['q']) {
-            courses = await Courses.fuzzySearch(req.query['q'])
+            courses = await Courses.fuzzySearch(req.query['q']).select('title rating img');
         } else {
-            courses = await Courses.find({});
+            courses = await Courses.find({}).select('title rating img');
         }
-        res.json(courses);
+        res.json({courses});
     }catch(error) {
         res.json({'error': error})
     }
@@ -33,34 +32,13 @@ router.get('/courses', async (req, res) => {
 */
 router.get('/course/:id', async (req, res) => {
     const _id = req.params.id
-    const details = await Courses.findById(_id)
-   
-    const url=details.link
-
-    axios.get(url)
-    .then(function (response) {
-        const $ = cheerio.load(response.data);
-        let title = clean($('h1.clp-lead__title').text());
-        //let description = $('div.clp-component-render div.description div.js-simple-collapse-inner').text();
-        let description = clean($('[data-purpose="collapse-description-text"]').children().last().html());
-        let image = details.img;
-        let duration = clean($('span[data-purpose="video-content-length"]').text());
-        let rating = $('span[id*="rate-count-value--"]').first().text();
-        let instructor = clean($('a.instructor-links__link').first().text());
-        let enrollment = clean($('div[data-purpose="enrollment"]').first().text());
-        
-        res.json({
-            image,
-            title,
-            description,
-            duration,
-            url,
-            rating,
-            instructor,
-            enrollment
-        })
-    })
-    .catch( err => res.status(400).json(err))
+    try {
+        let course = await Courses.findById(_id);
+        res.json(course)
+    } catch(e) {
+        let err = "Course doesn't exist or has been removed!";
+        res.json(err);
+    }
 })
 
 
@@ -90,11 +68,55 @@ router.delete('/course/delete/:id', async (req,res) =>{
 
 /*
     METHOD:   POST <ADD COURSE> 
-    ENDPOINT: api/admin
+    ENDPOINT: api/course/create
 */
-router.post('/admin',async (req, res) =>{
+router.post('/course/create',async (req, res) =>{
     let { link } = req.body;
-    res.send(getDetails(link))
+    try {
+        axios.get(link)
+        .then(function (response) {
+            const $ = cheerio.load(response.data);
+            let title = clean($('[data-purpose="lead-title"]').text());
+            let description;
+            try {
+                description = clean($('[data-purpose="collapse-description-text"]').children().last().html());
+            }catch(e) {
+                description = clean($('[data-purpose="safely-set-inner-html:description:description"]').html());
+            }
+
+            let img = $('.introduction-asset img').attr('src') || $('[data-purpose="introduction-asset"] img').attr('src') || 'fallback';
+            let duration = clean($('span[data-purpose="video-content-length"]').text());
+            let rating = Number($('span[id*="rate-count-value--"]').first().text()) || Number($('span[data-purpose="rating-number"]').first().text());
+            let instructor = clean($('a.instructor-links__link').first().text()) || $('[class*="instructor-links--info--"] a').text();
+            let students = Number(clean($('div[data-purpose="enrollment"]').first().text()).split(' ')[0].split(',').join(''));
+            let tag = []
+            $('.topic-menu__link').each((idx, el) => {
+                tag.push($(el).text().trim())
+            })
+            $('.topic-menu a').each((idx, el) => {
+                tag.push($(el).text().trim());
+            })
+
+            let course = {
+                link,
+                title,
+                description,
+                duration,
+                rating,
+                img,
+                instructor,
+                students,
+                tag
+            }
+            let instance = new Courses(course);
+            // console.log(instance)
+            instance.save(err => console.log(err));
+            
+            res.json(course)
+        }).catch(e => res.json(e))
+    } catch(e) {
+        res.json(e)
+    }
 })
 
 module.exports =  router
