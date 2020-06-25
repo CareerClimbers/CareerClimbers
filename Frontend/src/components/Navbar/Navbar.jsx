@@ -48,13 +48,13 @@ export default () => {
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <Dropdown overlay={menu}>
-                                    <Link className="nav-link">
+                                    <span className="nav-link">
                                         Categories <DownOutlined/>
-                                    </Link>
+                                    </span>
                                 </Dropdown>
                             </li>
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/courses/web"><Text strong>Courses</Text></Link>
+                                <Link className="nav-link" to="/courses"><Text strong>Courses</Text></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link " to="/"><Button type='primary' size='large'>Join on Telegram</Button></Link>

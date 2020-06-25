@@ -1,16 +1,25 @@
 import React from 'react'
-import {Rate} from 'antd'
+import {Rate, Card, Typography} from 'antd'
 
-export default ({src, title, rating}) => {
+const {Meta} = Card;
+const {Text} = Typography
+
+export default ({src, title, rating, instructor}) => {
     return (
-        <div className='card'>
-            <img src={src} alt={title}/>
-            <div className="card-body">
-                <div className="card-title">
-                    {title}
-                </div>
-                <Rate disabled allowHalf defaultValue={rating}/>
-            </div>
-        </div>
+        <Card
+            cover={
+                <img src={src} alt={title}></img>
+            }
+        >
+            <Meta
+                title={title}
+                description={
+                <>
+                    <Rate disabled allowHalf defaultValue={rating}/><br/>
+                    <Text strong>By {instructor}</Text>
+                </>
+                }
+            />
+        </Card>
     )
 }

@@ -15,9 +15,12 @@ router.get('/courses', async (req, res) => {
     try {
         let courses = {}
         if(req.query['q']) {
-            courses = await Courses.fuzzySearch(req.query['q']).select('title rating img');
-        } else {
-            courses = await Courses.find({}).select('title rating img');
+            courses = await Courses.fuzzySearch(req.query['q']).select('title rating img instructor');
+        } else if(req.query['filter']) {
+
+        } 
+        else {
+            courses = await Courses.find({}).select('title rating img instructor');
         }
         res.json({courses});
     }catch(error) {
@@ -90,9 +93,6 @@ router.post('/course/create',async (req, res) =>{
             let instructor = clean($('a.instructor-links__link').first().text()) || $('[class*="instructor-links--info--"] a').text();
             let students = Number(clean($('div[data-purpose="enrollment"]').first().text()).split(' ')[0].split(',').join(''));
             let tag = []
-            $('.topic-menu__link').each((idx, el) => {
-                tag.push($(el).text().trim())
-            })
             $('.topic-menu a').each((idx, el) => {
                 tag.push($(el).text().trim());
             })

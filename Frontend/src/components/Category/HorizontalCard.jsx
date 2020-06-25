@@ -1,5 +1,7 @@
 import React from 'react'
 
+import {Rate} from 'antd'
+
 export default function HorizontalCard({src, title, rating, creator}) {
     return (
         <div className='card mb-2'>
@@ -12,7 +14,7 @@ export default function HorizontalCard({src, title, rating, creator}) {
                         <div className="card-title">
                             {title}
                         </div>
-                        <div className="rating small" style={{"--rating":rating, "--star-size":15}}></div>({rating})
+                        <Rate value={rating} disabled allowHalf/>
                         <div className='small'>By {creator}</div>
                     </div>
                 </div>

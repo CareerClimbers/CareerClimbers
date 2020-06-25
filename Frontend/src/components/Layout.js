@@ -11,7 +11,7 @@ import ScrollToTop from './Utils/ScrollToTop'
 const routes = [
     {path : '/', Component: <Home/>, name : 'home'},
     {path : '/detail/:course_id', Component: <CourseDetail/>, name : 'course_detail'},
-    {path : '/courses/:course_type', Component: <Courses/>, name : 'courses'}
+    {path : '/courses', Component: <Courses/>, name : 'courses'}
 ]
 
 

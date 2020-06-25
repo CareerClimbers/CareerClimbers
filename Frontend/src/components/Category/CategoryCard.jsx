@@ -1,34 +1,20 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {Spin} from 'antd'
+
+import {loadCourses} from '../../redux/actions/courses'
 
 import Category from './Category'
 import HorizontalCard from './HorizontalCard'
 import Title from '../Utils/Title'
 
-const courses = [
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',}
-]
+const CategoryCard = ({courses, loading, loadCourses}) => {
 
-export default () => {
+    useEffect(() => {
+        loadCourses();
+    }, [])
+
     return (
         <div className='bg-light my-4 py-4'>
             <div className="container">
@@ -55,9 +41,10 @@ export default () => {
                         </div>
                     </div>
                     <div className="col-md-8">
-                        {courses.map(course => <Link key={course.title} to={`/detail/${course.title}`}><HorizontalCard src={course.src} title={course.title} rating={course.rating} creator={course.creator} /></Link>)}
+                        { loading ? <Spin/> :
+                        courses.map(course => <Link key={course.title} to={`/detail/${course._id}`}><HorizontalCard src={course.img} title={course.title} rating={course.rating} creator={course.instructor} /></Link>)}
                         <div className="text-center mt-4">
-                            <button className='text-uppercase btn-sm btn btn-primary'> View All</button>
+                            <Link className='text-uppercase btn-sm btn btn-primary' to='/courses'> View All</Link>
                         </div>
                     </div>
                 </div>
@@ -65,3 +52,10 @@ export default () => {
         </div>
     )
 }
+
+const mapStateToProps = state =>({
+    loading: state.courses.loading,
+    courses: state.courses.courses
+})
+
+export default connect(mapStateToProps, {loadCourses})(CategoryCard)

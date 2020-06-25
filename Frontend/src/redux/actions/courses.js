@@ -1,8 +1,8 @@
 import * as TYPES from './types'
 
 
-export const loadCourses = () => dispatch => {
-    fetch('http://localhost:5000/api/courses')
+export const loadCourses = (url = 'http://localhost:5000/api/courses') => dispatch => {
+    fetch(url)
     .then(res => res.json())
     .then(res => {
         dispatch({type: TYPES.SET_LOADING})
