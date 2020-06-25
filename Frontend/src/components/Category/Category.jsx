@@ -16,7 +16,7 @@ export default function Category() {
             </div>
             {
                 categories.map(category => (
-                    <div >
+                    <div key={category.category}>
                         <Link to={category.link}>
                             <div className='d-flex justify-content-between bb'>
                                 {category.category}

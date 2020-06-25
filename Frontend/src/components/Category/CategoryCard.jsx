@@ -12,8 +12,11 @@ import Title from '../Utils/Title'
 const CategoryCard = ({courses, loading, loadCourses}) => {
 
     useEffect(() => {
-        loadCourses();
-    }, [])
+        let instance = {
+            query: ''
+        }
+        loadCourses(instance);
+    }, [loadCourses])
 
     return (
         <div className='bg-light my-4 py-4'>
@@ -26,16 +29,16 @@ const CategoryCard = ({courses, loading, loadCourses}) => {
                         </div>
                         <div className='md-hidden mb-3 d-flex justify-content-between mobile-category'>
                             <h4>Categories</h4>
-                            <div class="dropdown">
+                            <div className="dropdown">
 
-                            <a class="btn btn-secondary dropdown-toggle" href="/" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a className="btn btn-secondary dropdown-toggle" href="/" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Select Category
                             </a>
 
-                            <div class="dropdown-menu small" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="/">Web Development</a>
-                                <a class="dropdown-item" href="/">Machine Learning</a>
-                                <a class="dropdown-item" href="/">Deep Learning</a>
+                            <div className="dropdown-menu small" aria-labelledby="dropdownMenuLink">
+                                <a className="dropdown-item" href="/">Web Development</a>
+                                <a className="dropdown-item" href="/">Machine Learning</a>
+                                <a className="dropdown-item" href="/">Deep Learning</a>
                             </div>
                             </div>
                         </div>

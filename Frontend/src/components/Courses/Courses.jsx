@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Spin} from 'antd'
 
@@ -10,10 +10,14 @@ import Title from '../Utils/Title'
 
 
 const Courses = ({courses, loadCourses, loading}) => {
+    let query = new URLSearchParams(useLocation().search).get('q');
     
     useEffect(() => {
-        loadCourses();
-    }, [])
+        let g = {
+            query: query || ''
+        }
+        loadCourses(g);
+    }, [loadCourses, query])
 
     return (
         <div className='container main'>

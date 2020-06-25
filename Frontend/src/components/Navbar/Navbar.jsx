@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 
 import {Button, Input, Typography, Dropdown, Menu} from 'antd'
 import {DownOutlined} from '@ant-design/icons'
@@ -25,8 +25,12 @@ const menu = (
     </Menu>
 ) 
 
-export default () => {
+export default withRouter((props) => {
     
+    const handleSearch = (v, e) => {
+        props.history.push(`/courses?q=${v}`)
+    } 
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light">
@@ -43,7 +47,7 @@ export default () => {
 
                     <div className="collapse navbar-collapse" id="navbarText">
 
-                        <Search placeholder='Search Courses...' size='large' enterButton className='search mx-auto'/>
+                        <Search placeholder='Search Courses...' size='large' enterButton className='search mx-auto' onSearch={handleSearch}/>
 
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
@@ -66,4 +70,4 @@ export default () => {
             </nav>
         </>
     )
-}
+})
