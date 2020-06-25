@@ -14,15 +14,27 @@ const clean = require('../utils/clean')
 router.get('/courses', async (req, res) => {
     try {
         let courses = {}
-        if(req.query['q']) {
-            courses = await Courses.fuzzySearch(req.query['q']).select('title rating img instructor');
-        } else if(req.query['filter']) {
+        
+        let courses_limit = parseInt(req.query['limit'])
+        
+        let query = req.query['q'] || req.query['category'] || req.query['instructor'] || "";
+        
+        let sort = {}
 
-        } 
-        else {
-            courses = await Courses.find({}).select('title rating img instructor');
-        }
-        res.json({courses});
+        if(req.query['filter'] == 'popular')
+            sort['students'] = -1
+        
+        if(req.query['filter'] == 'rating')
+            sort['rating'] = -1
+
+
+        courses = await Courses.fuzzySearch(query)
+        .sort(sort)
+        .select('title rating img instructor')
+        .limit(courses_limit)
+
+        res.json({courses})
+        
     }catch(error) {
         res.json({'error': error})
     }
