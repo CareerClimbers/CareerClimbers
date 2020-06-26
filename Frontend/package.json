@@ -21,6 +21,7 @@
     "scss": "^0.2.4",
     "slick-carousel": "^1.8.1"
   },
+  "proxy": "http://localhost:5000/api",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

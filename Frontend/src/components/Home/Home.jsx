@@ -8,9 +8,9 @@ export default function Home() {
     return (
         <>
             <Header/>
-            <CourseCarousel title="Popular Courses" subtitle='top rated'/>
+            <CourseCarousel title="Popular Courses" subtitle='highly enrolled' url='?filter=popular&limit=8'/>
             <CategoryCard/>
-            <CourseCarousel title="Popular Courses" subtitle='top rated'/>
+            <CourseCarousel title="Top Rated" subtitle='highly rated' url='?filter=rating&limit=8'/>
         </>
     )
 }

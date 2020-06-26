@@ -47,7 +47,7 @@ export default withRouter((props) => {
 
                     <div className="collapse navbar-collapse" id="navbarText">
 
-                        <Search placeholder='Search Courses...' size='large' enterButton className='search mx-auto' onSearch={handleSearch}/>
+                        <Search placeholder='Search Courses...' size='large' enterButton className='search mx-auto' onSearch={handleSearch} allowClear/>
 
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">

@@ -1,33 +1,33 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+
+import {Table} from 'antd'
+
 const categories = [
-    {category : 'Web development', count : 158, link : '/course/web'},
-    {category : 'Web development', count : 158, link : '/course/web'},
-    {category : 'Web development', count : 158, link : '/course/web'},
-    {category : 'Web development', count : 158, link : '/course/web'},
-    {category : 'Web development', count : 158, link : '/course/web'},
+    {category : 'Web development', link : '/course/web'},
+    {category : 'Machine Learning', link : '/course/web'},
+    {category : 'Artifical Intelligence', link : '/course/web'},
+    {category : 'Frontend', link : '/course/web'},
+    {category : 'Backend', link : '/course/web'},
+]
+
+const columns = [
+    {
+        title: 'Category',
+        dataIndex: 'category',
+        render: text => <a href="/">{text}</a>
+    },
 ]
 
 export default function Category() {
     return (
-        <div className="category">
-            <div>
-                Categories
-            </div>
-            {
-                categories.map(category => (
-                    <div key={category.category}>
-                        <Link to={category.link}>
-                            <div className='d-flex justify-content-between bb'>
-                                {category.category}
-                                <span className="badge badge-primary">
-                                    {category.count}
-                                </span>
-                            </div>
-                        </Link>
-                    </div>
-                ))
-            }
-        </div>
+        <Table
+            dataSource={categories}
+            columns={columns}
+            bordered
+            pagination={false}
+            showHeader={false}
+            title={() => 'Categories'}
+        />
     )
 }

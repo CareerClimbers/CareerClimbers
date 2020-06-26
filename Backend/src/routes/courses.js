@@ -15,7 +15,8 @@ router.get('/courses', async (req, res) => {
     try {
         let courses = {}
         
-        let courses_limit = parseInt(req.query['limit'])
+        /* FILTER LOGIC & SORT LOGIC */
+        let courses_limit = parseInt(req.query['limit']) || 16
         
         let query = req.query['q'] || req.query['category'] || req.query['instructor'] || "";
         
@@ -27,13 +28,29 @@ router.get('/courses', async (req, res) => {
         if(req.query['filter'] == 'rating')
             sort['rating'] = -1
 
-
         courses = await Courses.fuzzySearch(query)
         .sort(sort)
         .select('title rating img instructor')
-        .limit(courses_limit)
 
-        res.json({courses})
+        
+        /* PAGINATION LOGIC */
+        let page = parseInt(req.query['page']) || 0;
+        let pageCount = Math.ceil(courses.length / courses_limit) - 1;
+        let currentPage = page;
+        let hasNext = page < pageCount;
+        let hasPrev = page > 0;
+
+        let pagination = {
+            currentPage,
+            hasNext,
+            hasPrev
+        }
+        
+        let start = currentPage * courses_limit;
+        let end = (currentPage + 1) * courses_limit ;
+        courses = courses.slice(start , end);
+        
+        res.json({courses, ...pagination})
         
     }catch(error) {
         res.json({'error': error})

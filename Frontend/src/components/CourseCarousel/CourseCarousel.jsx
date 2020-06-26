@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
+
+import {Spin} from 'antd'
 
 import CourseCard from '../CourseCard/CourseCard'
 import Title from '../Utils/Title'
@@ -42,54 +44,38 @@ const settings = {
     arrows: true,
 }
 
-const courses = [
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-    {src: 'https://img-a.udemycdn.com/course/240x135/2417990_830d_13.jpg',
-    title: 'SSL Complete Guide 2020: HTTP to HTTPS',
-    rating: 4.5,
-    creator: 'Bogdun stashchuk',},
-]
 
+export default ({title, subtitle, url}) => {
 
+    const [courses, setCourse] = useState([])
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+      fetch(`http://localhost:5000/api/courses${url}`)
+      .then(res => res.json())
+      .then(res => {
+        setCourse(res.courses)
+        setLoading(false)
+      })
+      .catch(err => console.log(err))
+    }, [url])
 
-
-export default ({title, subtitle}) => {
     return (
         <div className='course-carousel container'>
             <div className="container">
             <Title title={title} subtitle={subtitle}/>
-              <Slider {...settings}>
-                  {courses.map(course => 
-                  <div className='px-2' key={course.title}>
-                      <Link to={`/detail/${course.title}`} >
-                          <CourseCard src={course.src} title={course.title} rating={course.rating} creator={course.creator}/>
-                      </Link>
-                  </div>
-                  )}
-              </Slider>
+            {
+              loading ? <Spin/> :(
+                <Slider {...settings}>
+                    {courses.map(course => 
+                    <div className='px-2' key={course.title}>
+                        <Link to={`/detail/${course.title}`} >
+                            <CourseCard src={course.img} title={course.title} rating={course.rating} instructor={course.instructor}/>
+                        </Link>
+                    </div>
+                    )}
+                </Slider>
+              )
+            }
             </div>
         </div>
     )
