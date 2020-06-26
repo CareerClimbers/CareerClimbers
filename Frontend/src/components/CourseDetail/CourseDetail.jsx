@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 
-import {Rate, Spin} from 'antd'
+import {Rate, Spin, Tag, Button} from 'antd'
+import {ArrowRightOutlined, ClockCircleOutlined, UserOutlined, TeamOutlined} from '@ant-design/icons'
 
 import CourseCarousel from '../CourseCarousel/CourseCarousel'
 
@@ -47,27 +48,27 @@ export default function CourseDetail() {
                                     <Rate disabled allowHalf defaultValue={course.rating}/>
                                 </div>
                                 <div className="col-6">
-                                    <i className="fa fa-clock-o"></i> {course.duration}
+                                    <ClockCircleOutlined /> {course.duration}
                                 </div>
                             </div>
 
                             <div className='row my-2'>
                                 <div className="col-6 d-flex align-items-center">
-                                    <i className="fa fa-users"></i> ( {course.students} ) have Enrolled
+                                    <TeamOutlined />  {course.students} have Enrolled
                                 </div>
                                 <div className="col-6">
-                                    Created by {course.instructor}
+                                    <UserOutlined/> Created by {course.instructor}
                                 </div>
                             </div>
 
                             <div className='my-2'>
-                                {course.tag.map(tag => <span className="badge badge-pill badge-secondary" key={tag}>{tag}</span>)}
+                                {course.tag.map(tag => <Tag color='blue' key={tag} checked='true'>{tag}</Tag>)}
                             </div>
 
                             <div className='mt-4'>
-                                <a href={course.link} className='btn btn-primary' target='_blank' rel="noreferrer noopener">
-                                    Enroll Now  <i className="fa fa-long-arrow-right"></i>
-                                </a>
+                                <Button href={course.link} type='primary' target='_blank' size='large'>
+                                    Enroll Now  <ArrowRightOutlined />
+                                </Button>
                             </div>
                         </div>
                     </div>
@@ -77,7 +78,7 @@ export default function CourseDetail() {
                         <div className='description text-gray' dangerouslySetInnerHTML={{ __html: course.description }}></div>
                     </div>
 
-                    <CourseCarousel title='Similar Courses'/>
+                    <CourseCarousel title='Similar Courses' url={`/similar/${course._id}`}/>
                 </div>
             )
         }

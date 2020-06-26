@@ -148,4 +148,19 @@ router.post('/course/create',async (req, res) =>{
     }
 })
 
+
+/*
+    METHOD:   GET <SIMILAR COURSE> 
+    ENDPOINT: api/course/similar/:id
+*/
+router.get('/courses/similar/:id', async (req, res) => {
+    var id = req.params.id;
+    var course = await Courses.findById(id)
+    var courses = await Courses.fuzzySearch(course.tag[0], {'_id': {$ne:id}})
+    .select('title rating img instructor')
+    .limit(8)
+    res.json({courses})
+})
+
+
 module.exports =  router

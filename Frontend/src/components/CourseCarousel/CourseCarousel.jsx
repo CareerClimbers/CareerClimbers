@@ -68,7 +68,7 @@ export default ({title, subtitle, url}) => {
                 <Slider {...settings}>
                     {courses.map(course => 
                     <div className='px-2' key={course.title}>
-                        <Link to={`/detail/${course.title}`} >
+                        <Link to={`/detail/${course._id}`} >
                             <CourseCard src={course.img} title={course.title} rating={course.rating} instructor={course.instructor}/>
                         </Link>
                     </div>
