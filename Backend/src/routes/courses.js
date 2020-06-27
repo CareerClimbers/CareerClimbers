@@ -4,7 +4,8 @@ const Courses = require('../models/Courses.model');
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const clean = require('../utils/clean')
+const clean = require('../utils/clean');
+const Course = require('../models/Courses.model');
 
 
 /*
@@ -150,15 +151,32 @@ router.post('/course/create',async (req, res) =>{
 
 
 /*
+    METHOD:   POST <MULTIPLE COURSE> 
+    ENDPOINT: api/course/multiple/create/
+*/
+router.post('/course/multiple/create', async (req, res) => {
+    var { links } = req.body;
+    var promises = []
+    for(link of links) {
+        promises.push(await axios.post('http://localhost:5000/api/course/create', {link}))
+    }
+    try {
+        var response = await Promise.all(promises)
+        return res.json({'msg':'Created successfully'})
+    } catch(err) {
+        return res.json(err)
+    }
+})
+
+
+/*
     METHOD:   GET <SIMILAR COURSE> 
     ENDPOINT: api/course/similar/:id
 */
 router.get('/courses/similar/:id', async (req, res) => {
     var id = req.params.id;
     var course = await Courses.findById(id)
-    var courses = await Courses.fuzzySearch(course.tag[0], {'_id': {$ne:id}})
-    .select('title rating img instructor')
-    .limit(8)
+    var courses = await Courses.fuzzySearch({tag : { $all : course.tag}, _id: {$ne:course._id}})
     res.json({courses})
 })
 
