@@ -5,7 +5,6 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 
 const clean = require('../utils/clean');
-const Course = require('../models/Courses.model');
 
 
 /*
@@ -66,7 +65,7 @@ router.get('/courses', async (req, res) => {
 router.get('/course/:id', async (req, res) => {
     const _id = req.params.id
     try {
-        let course = await Courses.findById(_id);
+        let course = await Courses.findById({_id});
         res.json(course)
     } catch(e) {
         let err = "Course doesn't exist or has been removed!";

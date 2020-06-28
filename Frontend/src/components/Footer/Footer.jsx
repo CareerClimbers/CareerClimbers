@@ -21,6 +21,7 @@ export default function Footer() {
                     </Button>
                 </div>
             </div>
+            
             <div className="bg-light footer">
                 <div className='row container mx-auto'>
                     <div className="col-md-4">

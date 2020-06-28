@@ -1,24 +1,23 @@
 import React from 'react'
 
-import {Rate} from 'antd'
+import {Rate, Card, Typography, Avatar} from 'antd'
+import Meta from 'antd/lib/card/Meta'
 
-export default function HorizontalCard({src, title, rating, creator}) {
+const {Text} = Typography
+
+export default function HorizontalCard({src, title, rating, creator, loading}) {
     return (
-        <div className='card mb-2'>
-            <div className="card-body">
-                <div className="row">
-                    <div className="col-3">
-                        <img src={src} alt={title} className='responsive-image'/>
-                    </div>
-                    <div className="col-8">
-                        <div className="card-title">
-                            {title}
-                        </div>
-                        <Rate value={rating} disabled allowHalf/>
-                        <div className='small'>By {creator}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Card loading={loading}>
+            <Meta
+                avatar={<Avatar src={src} alt={title} shape='square' size={64}></Avatar>}
+                title={title}
+                description={
+                    <small>
+                        <Rate defaultValue={rating} disabled allowHalf/><br/>
+                        <Text>By {creator}</Text>
+                    </small>
+                }
+            />
+        </Card>
     )
 }

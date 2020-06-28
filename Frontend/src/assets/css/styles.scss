@@ -3,37 +3,16 @@
     height: auto;
 }
 
-:root {
-    --star-size: 30px;
-    --star-color: #fff;
-    --star-background: #fc0;
-}
-
 body {
     overflow-x: hidden;
 }
 
-.rating {
-    --percent: calc(var(--rating) / 5 * 100%);
-
-    display: inline-block;
-    font-size: var(--star-size);
-    font-family: Times;
-    line-height: 1;
-
-    &::before {
-        content: '★★★★★';
-        letter-spacing: 3px;
-        background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
+.slick-slide {
+    padding: 0 12px;
 }
 
-
-.description {
-    font-family: sans-serif;
-    font-size: 14px;
+.ant-card-body {
+    max-width: 100%;
 }
 
 
@@ -255,6 +234,7 @@ a {
     @media (max-width:800px) {
         text-align: left;
     }
+    
 }
 
 .main {

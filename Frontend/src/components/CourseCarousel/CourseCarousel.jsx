@@ -1,22 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import Slider from 'react-slick'
 
-import {Spin} from 'antd'
+import {Skeleton, Carousel} from 'antd'
 
 import CourseCard from '../CourseCard/CourseCard'
 import Title from '../Utils/Title'
 
 const settings = {
     slidesToShow: 4,
+    dots: false,
     responsive: [
         {
           breakpoint: 1024,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3,
-            infinite: true,
-            dots: true
           }
         },
         {
@@ -24,7 +22,6 @@ const settings = {
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-            initialSlide: 3
           }
         },
         {
@@ -60,23 +57,23 @@ export default ({title, subtitle, url}) => {
     }, [url])
 
     return (
-        <div className='course-carousel container'>
-            <div className="container">
-            <Title title={title} subtitle={subtitle}/>
-            {
-              loading ? <Spin/> :(
-                <Slider {...settings}>
-                    {courses.map(course => 
-                    <div className='px-2' key={course.title}>
-                        <Link to={`/detail/${course._id}`} >
-                            <CourseCard src={course.img} title={course.title} rating={course.rating} instructor={course.instructor}/>
-                        </Link>
-                    </div>
-                    )}
-                </Slider>
-              )
-            }
-            </div>
+      <div className="container">
+        <Title title={title} subtitle={subtitle}/>
+        <div className='container'>
+          {
+            loading ? <Skeleton active/> :(
+              <Carousel {...settings}>
+                  {courses.map(course => 
+                  <div key={course.title}>
+                      <Link to={`/detail/${course._id}`} >
+                          <CourseCard src={course.img} title={course.title} rating={course.rating} instructor={course.instructor}/>
+                      </Link>
+                  </div>
+                  )}
+              </Carousel>
+            )
+          }
         </div>
+      </div>
     )
 }

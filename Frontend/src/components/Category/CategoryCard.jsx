@@ -1,17 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Spin, Table} from 'antd'
+import { Table, Row, Col, Skeleton, Button} from 'antd'
 
 import HorizontalCard from './HorizontalCard'
 import Title from '../Utils/Title'
 
 
 const categories = [
-    {category : 'Web development', link : '/course/web'},
-    {category : 'Machine Learning', link : '/course/web'},
-    {category : 'Artifical Intelligence', link : '/course/web'},
-    {category : 'Frontend', link : '/course/web'},
-    {category : 'Backend', link : '/course/web'},
+    {category : 'Web development'},
+    {category : 'Machine Learning'},
+    {category : 'Artifical Intelligence'},
+    {category : 'Frontend'},
+    {category : 'Backend'},
 ]
 
 const columns = [
@@ -48,8 +48,8 @@ class CategoryCard extends React.Component {
                 <div className="container">
                     <Title title='Browse by Category' />
 
-                    <div className="row mt-4">
-                        <div className="col-md-4 ">
+                    <Row gutter={{xs:8, sm:16, lg:24}}>
+                        <Col xs={24} sm={24} md={10}>
                             <div className='md-block'>
                                 <Table
                                     dataSource={categories}
@@ -60,28 +60,29 @@ class CategoryCard extends React.Component {
                                     title={() => 'Categories'}
                                 />
                             </div>
-                            <div className='md-hidden mb-3 d-flex justify-content-between mobile-category'>
-                                <h4>Categories</h4>
-                                <div className="dropdown">
-
-                                    <a className="btn btn-secondary dropdown-toggle" href="/" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Select Category
-                                    </a>
-
-                                    <div className="dropdown-menu small" aria-labelledby="dropdownMenuLink">
-
-                                    </div>
-                                </div>
+                            <div className='md-hidden mb-3'>
+                                <Button>Web Development</Button>
                             </div>
-                        </div>
-                        <div className="col-md-8">
-                            {this.state.loading ? <Spin /> :
-                                this.state.courses.map(course => <Link key={course.title} to={`/detail/${course._id}`}><HorizontalCard src={course.img} title={course.title} rating={course.rating} creator={course.instructor} /></Link>)}
+                        </Col>
+                        <Col xs={24} sm={24} md={14}>
+                            <Row gutter={[0, 12]}>
+                                {
+                                    this.state.loading ? <Skeleton active/> :
+                                    this.state.courses.map(course => (
+                                        <Col span={24}>
+                                            <Link key={course.title} to={`/detail/${course._id}`}>
+                                                <HorizontalCard loading={this.state.loading} src={course.img} title={course.title} rating={course.rating} creator={course.instructor} />
+                                            </Link>
+                                        </Col>
+                                        )   
+                                    )
+                                }
+                            </Row>
                             <div className="text-center mt-4">
                                 <Link className='text-uppercase btn-sm btn btn-primary' to={`/courses?q=${this.state.currentSelected}`}> View All</Link>
                             </div>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                 </div>
             </div>
         )

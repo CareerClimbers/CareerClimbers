@@ -1,18 +1,21 @@
 import React,{useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import parse from 'html-react-parser'
 
-import {Rate, Spin, Tag, Button} from 'antd'
+import {Rate, Skeleton, Tag, Button, Typography, Row, Col, Space} from 'antd'
 import {ArrowRightOutlined, ClockCircleOutlined, UserOutlined, TeamOutlined} from '@ant-design/icons'
 
 import CourseCarousel from '../CourseCarousel/CourseCarousel'
 
+
+const {Paragraph, Title} = Typography
 
 
 export default function CourseDetail() {
 
     const [course, setCourse] = useState({})
     const [loading, setLoading] = useState(true)
-    let {course_id} = useParams()
+    let {course_id} = useParams();
 
     useEffect(()=> {
         let endpoint = `http://localhost:5000/api/course/${course_id}`
@@ -28,60 +31,64 @@ export default function CourseDetail() {
 
     return (
         <>
-        {
-            loading ? <Spin size='large'/> : (
+        
                 <div className='container main'>
-                    <div className="row mt-5">
-                        <div className="col-md-5">
+                    <Skeleton loading={loading} size='large' active>
+                    <Row gutter={[32,32]}>
+                        <Col sm={24} md={10}>
                             <img 
                             src={course.img} 
                             alt={course.title}
                             className='responsive-image'
                             />
-                        </div>
-                        <div className="col-md-7">
-                            <h2>
+                        </Col>
+                        <Col sm={24} md={14}>
+                            
+                            <Title level={2}>
                                 {course.title}
-                            </h2>
-                            <div className='row my-2'>
-                                <div className="col-6 d-flex align-center">
+                            </Title>
+
+                            <Row gutter={[8, 8]}>
+                                <Col span={12}>
                                     <Rate disabled allowHalf defaultValue={course.rating}/>
-                                </div>
-                                <div className="col-6">
+                                </Col>
+                                <Col span={12}>
                                     <ClockCircleOutlined /> {course.duration}
-                                </div>
-                            </div>
+                                </Col>
+                            </Row>
 
-                            <div className='row my-2'>
-                                <div className="col-6 d-flex align-items-center">
+                            <Row gutter={[8, 8]}>
+                                <Col span={12}>
                                     <TeamOutlined />  {course.students} have Enrolled
-                                </div>
-                                <div className="col-6">
+                                </Col>
+                                <Col span={12}>
                                     <UserOutlined/> Created by {course.instructor}
+                                </Col>
+                            </Row>
+
+                            <Space direction='vertical' size={24}>
+                                <div >
+                                    { !loading && course.tag.map(tag => <Tag color='blue' key={tag} checked='true'>{tag}</Tag>)}
                                 </div>
-                            </div>
-
-                            <div className='my-2'>
-                                {course.tag.map(tag => <Tag color='blue' key={tag} checked='true'>{tag}</Tag>)}
-                            </div>
-
-                            <div className='mt-4'>
                                 <Button href={course.link} type='primary' target='_blank' size='large'>
                                     Enroll Now  <ArrowRightOutlined />
                                 </Button>
-                            </div>
-                        </div>
-                    </div>
+                            </Space>
+                        </Col>
+                    </Row>
 
-                    <div className="description mt-4">
-                        <h4>Description</h4>
-                        <div className='description text-gray' dangerouslySetInnerHTML={{ __html: course.description }}></div>
-                    </div>
-
+                    <Title level={4}>Description</Title>
+                        
+                    <Paragraph ellipsis={{ rows: 10, expandable: true, symbol: 'more' }} 
+                        className=''  
+                    >
+                        {parse(`${course.description}`)}
+                    </Paragraph>
+                    
+                    </Skeleton>
                     <CourseCarousel title='Similar Courses' url={`/similar/${course._id}`}/>
                 </div>
-            )
-        }
+           
         </>
     )
 }
