@@ -18,7 +18,7 @@ export default function CourseDetail() {
     let {course_id} = useParams();
 
     useEffect(()=> {
-        let endpoint = `http://localhost:5000/api/course/${course_id}`
+        let endpoint = `/api/course/${course_id}`
         console.log(endpoint)
         fetch(endpoint)
         .then(res => res.json())
@@ -80,7 +80,6 @@ export default function CourseDetail() {
                     <Title level={4}>Description</Title>
                         
                     <Paragraph ellipsis={{ rows: 10, expandable: true, symbol: 'more' }} 
-                        className=''  
                     >
                         {parse(`${course.description}`)}
                     </Paragraph>

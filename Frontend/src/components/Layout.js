@@ -1,6 +1,9 @@
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
+import {BackTop} from 'antd'
+import {ArrowUpOutlined} from '@ant-design/icons'
+
 import Navbar from './Navbar/Navbar'
 import Home from './Home/Home'
 import CourseDetail from './CourseDetail/CourseDetail'
@@ -13,6 +16,18 @@ const routes = [
     {path : '/detail/:course_id', Component: <CourseDetail/>, name : 'course_detail'},
     {path : '/courses', Component: <Courses/>, name : 'courses'}
 ]
+
+
+const style = {
+    height: 40,
+    width: 40,
+    lineHeight: '40px',
+    border: '1px solid gray',
+    color: 'gray',
+    textAlign: 'center',
+    fontSize: 14,
+    borderRadius: '50%'
+};
 
 
 export default () => {
@@ -29,6 +44,7 @@ export default () => {
                     ))
                 }
             </Switch>
+            <BackTop style={style}><ArrowUpOutlined/></BackTop>
             <Footer/>
                 
         </Router>

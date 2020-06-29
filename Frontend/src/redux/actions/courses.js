@@ -2,7 +2,7 @@ import * as TYPES from './types'
 
 
 export const loadCourses = ({query}) => dispatch => {
-    var endpoint = `http://localhost:5000/api/courses?q=${query}`
+    var endpoint = `/api/courses?q=${query}`
     fetch(endpoint)
     .then(res => res.json())
     .then(res => {

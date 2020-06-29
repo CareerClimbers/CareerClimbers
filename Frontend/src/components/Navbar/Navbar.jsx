@@ -14,7 +14,7 @@ const menu = (
         <Menu.ItemGroup title="Categories">
             {
                 categories.map(text => (
-                    <Menu.Item>
+                    <Menu.Item key={text}>
                         <Link to={`/courses?q=${text}`}>{text}</Link>
                     </Menu.Item>
                 ))

@@ -37,7 +37,7 @@ class CategoryCard extends React.Component {
     }
 
     fetchCourse = async () => {
-        let res = await fetch(`http://localhost:5000/api/courses?limit=5&category=${this.state.currentSelected}`);
+        let res = await fetch(`/api/courses?limit=5&category=${this.state.currentSelected}`);
         res = await res.json();
         this.setState({
             loading: false,

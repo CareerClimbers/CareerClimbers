@@ -77,7 +77,7 @@ export default ({title, subtitle, url}) => {
     const [courses, setCourse] = useState([])
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-      fetch(`http://localhost:5000/api/courses${url}`)
+      fetch(`/api/courses${url}`)
       .then(res => res.json())
       .then(res => {
         setCourse(res.courses)
