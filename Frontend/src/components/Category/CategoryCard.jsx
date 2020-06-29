@@ -27,6 +27,7 @@ const Menu = ({handleCategory, makeInvisible}) =>(<List
 }
 />)
 
+
 class CategoryCard extends React.Component {
 
     state = {
@@ -74,10 +75,11 @@ class CategoryCard extends React.Component {
                             <div className='md-block'>
                                 <Menu handleCategory={this.handleCategory}/>
                             </div>
-                            <div className='md-hidden mb-3'>
+                            <div className='md-hidden mb-3' style={{textAlign:'right'}}>
                                 <Dropdown overlay={<Menu handleCategory={this.handleCategory} />}
                                     onVisibleChange={this.handleVisible}
                                     visible={this.state.visible}
+                                    trigger={['click']}
                                 >
                                     <Button type='default'>Categories <DownOutlined /></Button>
                                 </Dropdown>

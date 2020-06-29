@@ -19,7 +19,6 @@ export default function CourseDetail() {
 
     useEffect(()=> {
         let endpoint = `/api/course/${course_id}`
-        console.log(endpoint)
         fetch(endpoint)
         .then(res => res.json())
         .then(res => {
@@ -35,33 +34,34 @@ export default function CourseDetail() {
                 <div className='container main'>
                     <Skeleton loading={loading} size='large' active>
                     <Row gutter={[32,32]}>
-                        <Col sm={24} md={10}>
+                        <Col sm={24} md={10} xs={24}>
                             <img 
                             src={course.img} 
                             alt={course.title}
                             className='responsive-image'
+                            style={{margin:'0 auto'}}
                             />
                         </Col>
                         <Col sm={24} md={14}>
                             
-                            <Title level={2}>
+                            <Title level={3}>
                                 {course.title}
                             </Title>
 
                             <Row gutter={[8, 8]}>
-                                <Col span={12}>
+                                <Col md={12} sm={24} xs={24}>
                                     <Rate disabled allowHalf defaultValue={course.rating}/>
                                 </Col>
-                                <Col span={12}>
+                                <Col md={12} sm={24} xs={24}>
                                     <ClockCircleOutlined /> {course.duration}
                                 </Col>
                             </Row>
 
                             <Row gutter={[8, 8]}>
-                                <Col span={12}>
+                                <Col md={12} sm={24} xs={24}>
                                     <TeamOutlined />  {course.students} have Enrolled
                                 </Col>
-                                <Col span={12}>
+                                <Col md={12} sm={24} xs={24}>
                                     <UserOutlined/> Created by {course.instructor}
                                 </Col>
                             </Row>
