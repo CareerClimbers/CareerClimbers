@@ -17,22 +17,20 @@ const routes = [
 
 export default () => {
     return (
-        <>
-            <Router>
-                <ScrollToTop/>
-                <Navbar />
-                <Switch>
-                    {
-                        routes.map(route => (
-                            <Route path={route.path} exact key={route.name}>
-                                {route.Component}
-                            </Route>
-                        ))
-                    }
-                </Switch>
-                <Footer/>
-                   
-            </Router>
-        </>
+        <Router>
+            <ScrollToTop/>
+            <Navbar />
+            <Switch>
+                {
+                    routes.map(route => (
+                        <Route path={route.path} exact key={route.name}>
+                            {route.Component}
+                        </Route>
+                    ))
+                }
+            </Switch>
+            <Footer/>
+                
+        </Router>
     )
 }

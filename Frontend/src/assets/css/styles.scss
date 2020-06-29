@@ -1,3 +1,4 @@
+
 .responsive-image {
     width: 100%;
     height: auto;
@@ -109,13 +110,21 @@ a {
     color: #2D3748;
 }
 
-
-.slick-prev:before {
-    color: black;
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 1.2rem;
 }
 
-.slick-next:before {
-    color: black;
+.custom-next {
+    left: 100%;
+}
+
+.custom-prev {
+    right: 100%;
 }
 
 

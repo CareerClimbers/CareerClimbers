@@ -2,13 +2,50 @@ import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 
 import {Skeleton, Carousel} from 'antd'
+import {RightCircleOutlined, LeftCircleOutlined} from '@ant-design/icons'
 
 import CourseCard from '../CourseCard/CourseCard'
 import Title from '../Utils/Title'
 
+const CustomNextArrow = (props) => {
+  const {onClick} = props;
+  return (
+    <div
+      onClick={onClick} 
+      style={{display:'block'}}
+      className='slick-arrow custom-next'
+    >
+      <RightCircleOutlined />
+    </div>
+  )
+}
+
+const CustomPrevArrow = (props) => {
+  const {onClick} = props;
+  return (
+    <div
+      onClick={onClick} 
+      style={{display:'block'}}
+      className='slick-arrow custom-prev'
+    >
+      <LeftCircleOutlined />
+    </div>
+  )
+}
+
 const settings = {
     slidesToShow: 4,
     dots: false,
+    arrows: true,
+    draggable: true,
+    swipe: true,
+    swipeToSlide: true,
+    infinite: true,
+    autoplay: true,
+    duration: 600,
+    nextArrow: <CustomNextArrow/>,
+    prevArrow: <CustomPrevArrow/>,
+
     responsive: [
         {
           breakpoint: 1024,
@@ -32,13 +69,6 @@ const settings = {
           }
         }
     ],
-    draggable: true,
-    swipe: true,
-    swipeToSlide: true,
-    infinite: true,
-    autoplay: true,
-    duration: 600,
-    arrows: true,
 }
 
 
@@ -62,7 +92,7 @@ export default ({title, subtitle, url}) => {
         <div className='container'>
           {
             loading ? <Skeleton active/> :(
-              <Carousel {...settings}>
+              <Carousel {...settings} effect='scrollx' >
                   {courses.map(course => 
                   <div key={course.title}>
                       <Link to={`/detail/${course._id}`} >

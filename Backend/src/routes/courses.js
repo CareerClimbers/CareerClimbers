@@ -175,7 +175,7 @@ router.post('/course/multiple/create', async (req, res) => {
 router.get('/courses/similar/:id', async (req, res) => {
     var id = req.params.id;
     var course = await Courses.findById(id)
-    var courses = await Courses.fuzzySearch({tag : { $all : course.tag}, _id: {$ne:course._id}})
+    var courses = await Courses.fuzzySearch({tag : { $all : course.tag}, _id: {$ne:id}})
     res.json({courses})
 })
 

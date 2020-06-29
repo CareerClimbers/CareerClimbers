@@ -6,9 +6,7 @@ const {Title, Text} = Typography
 export default ({title, subtitle}) => {
     return (
         <>
-            <Title level={4}>
-                <Text style={{textTransform:"uppercase"}}>{subtitle}</Text>
-            </Title>
+            <Text style={{textTransform:"uppercase"}} strong>{subtitle}</Text>
             <Title level={3} style={{marginTop:0}}>{title}</Title>   
         </>
     )
