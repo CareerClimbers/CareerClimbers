@@ -66,7 +66,7 @@ class CategoryCard extends React.Component {
 
     render() {
         return (
-            <div className='bg-light my-4 py-4'>
+            <div className='bg-light my-4 py-4' id='category'>
                 <div className="container">
                     <Title title='Browse by category' />
 

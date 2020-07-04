@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Link, useLocation} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {Skeleton, Row, Col} from 'antd'
+import {Skeleton, Row, Col, Pagination} from 'antd'
 
 import {loadCourses} from '../../redux/actions/courses'
 
@@ -9,7 +9,7 @@ import CourseCard from '../CourseCard/CourseCard'
 import Title from '../Utils/Title'
 
 
-const Courses = ({courses, loadCourses, loading}) => {
+const Courses = ({courses, loadCourses, loading, len}) => {
     let query = new URLSearchParams(useLocation().search).get('q');
     
     useEffect(() => {
@@ -18,6 +18,16 @@ const Courses = ({courses, loadCourses, loading}) => {
         }
         loadCourses(g);
     }, [loadCourses, query])
+
+    const handlePage = (page) => {
+        page -= 1;
+        
+        let g = {
+            query: query || '',
+            page
+        }
+        loadCourses(g);
+    }
 
     return (
         <div className='container main'>
@@ -35,13 +45,17 @@ const Courses = ({courses, loadCourses, loading}) => {
                     }
                 </Row>
             </Skeleton>
+            
+            <Pagination total={len} pageSize={6} defaultCurrent={1}  onChange = {handlePage}/>
         </div>
     )
 }
 
 const mapStateToProps = state => ({
     courses : state.courses.courses,
-    loading: state.courses.loading
+    currentPage: state.courses.currentPage,
+    loading: state.courses.loading,
+    len: state.courses.len
 })
 
 export default connect(mapStateToProps , {loadCourses})(Courses);

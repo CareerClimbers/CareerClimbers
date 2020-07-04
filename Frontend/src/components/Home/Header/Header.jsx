@@ -14,7 +14,7 @@ export default function Header() {
                     <Link to='/courses'>
                         <Button type='primary' href='/courses'>View Courses</Button>
                     </Link>
-                    <Button type='default' href='/'>Browse By Category</Button>
+                    <Button type='default' href='#category'>Join Us on Telegram</Button>
                 </Space>
             </div>
         </div>

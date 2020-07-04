@@ -16,7 +16,7 @@ router.get('/courses', async (req, res) => {
         let courses = {}
         
         /* FILTER LOGIC & SORT LOGIC */
-        let courses_limit = parseInt(req.query['limit']) || 16
+        let courses_limit = parseInt(req.query['limit']) || 6
         
         let query = req.query['q'] || req.query['category'] || req.query['instructor'] || "";
         
@@ -43,7 +43,9 @@ router.get('/courses', async (req, res) => {
         let pagination = {
             currentPage,
             hasNext,
-            hasPrev
+            hasPrev,
+            pageCount,
+            len : courses.length - 1
         }
         
         let start = currentPage * courses_limit;

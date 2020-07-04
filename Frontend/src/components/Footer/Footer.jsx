@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'antd'
+import {Button, Row, Col} from 'antd'
 
 const social_links = [
     {name : 'instagram', className : 'fa fa-instagram', link: '/', color: '#667EEA'},
@@ -11,20 +11,20 @@ const social_links = [
 export default function Footer() {
     return (
         <>
-            <div className="d-flex justify-content-center align-items-center py-5 join-telegram mt-4">
-                <div className='text-center mw-64'>
+            <Row className="py-5 join-telegram mt-4" justify='center' align='center'>
+                <Col className='text-center mw-64'>
                     <p>
                         We have a great community on Telegram where we have bunch of free courses, certifications and other resources uploaded daily ! 
                     </p>
                     <Button type='primary' size='large'>
                         Join us on Telegram
                     </Button>
-                </div>
-            </div>
+                </Col>
+            </Row>
             
             <div className="bg-light footer">
-                <div className='row container mx-auto'>
-                    <div className="col-md-4">
+                <Row className='row container mx-auto'>
+                    <Col md={8} sm={24}>
                         <h4>About Us</h4>
                         <p className='mb-4'>
                             Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -34,24 +34,24 @@ export default function Footer() {
                             <i className="fa fa-envelope-o"></i> contactus@gmail.com<br/>
                             <i className="fa fa-phone"></i> +91 810-4451-553
                         </p>
-                    </div>
-                    <div className="col-md-4 copywright">
+                    </Col>
+                    <Col className='copywright' md={8} sm={24}>
                         <img src={require('../../assets/image/logo.png')} alt='Career Climber' className='responsive-image w-128'/>
                         <p>
                             Copywright 2020, Career Climber
                         </p>
-                    </div>
+                    </Col>
 
-                    <div className="col-md-4">
+                    <Col md={8} sm={24}>
                         <h4>Social Links</h4>
                         {social_links.map(el => (
                             <a href={el.link} key={el.name} className='social-icon' style={{'--background': el.color }}>
                                 <i className={el.className}></i>
                             </a>
                         ))}
-                    </div>
+                    </Col>
                     
-                </div>
+                </Row>
             </div>
         </>
     )
