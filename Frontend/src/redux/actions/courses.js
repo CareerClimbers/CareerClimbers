@@ -1,7 +1,7 @@
 import * as TYPES from './types'
 
 
-export const loadCourses = ({query, page = 1, limit = 6}) => dispatch => {
+export const loadCourses = ({query, page = 0, limit = 12}) => dispatch => {
     var endpoint = `/api/courses?q=${query}&page=${page}&limit=${limit}`
     fetch(endpoint)
     .then(res => res.json())

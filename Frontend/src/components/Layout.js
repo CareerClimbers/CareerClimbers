@@ -9,7 +9,9 @@ import Home from './Home/Home'
 import CourseDetail from './CourseDetail/CourseDetail'
 import Footer from './Footer/Footer'
 import Courses from './Courses/Courses'
+import PageNotFound from './NotFound/PageNotFound'
 import ScrollToTop from './Utils/ScrollToTop'
+
 
 const routes = [
     {path : '/', Component: <Home/>, name : 'home'},
@@ -43,6 +45,9 @@ export default () => {
                         </Route>
                     ))
                 }
+                <Route path="/">
+                    <PageNotFound/>
+                </Route>
             </Switch>
             <BackTop style={style}><ArrowUpOutlined/></BackTop>
             <Footer/>
