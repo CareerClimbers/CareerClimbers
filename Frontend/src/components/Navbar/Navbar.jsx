@@ -65,8 +65,8 @@ export default withRouter((props) => {
                                     </span>
                                 </Dropdown>
                             </li>
-                            <li className="nav-item" onClick={handleCollapsed}>
-                                <Link className="nav-link" ><Text strong>Courses</Text></Link>
+                            <li className="nav-item" onClick={() => {handleSearch('');handleCollapsed()}}>
+                                <Link className="nav-link"><Text strong>Courses</Text></Link>
                             </li>
                             <li className="nav-item" onClick={handleCollapsed}>
                                 <Button type='primary' size='large' href='https://t.me/CareerClimbers' target='_blank'>Join on Telegram</Button>
