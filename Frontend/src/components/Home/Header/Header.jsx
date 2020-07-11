@@ -14,7 +14,7 @@ export default function Header() {
                     <Link to='/courses'>
                         <Button type='primary' href='/courses'>View Courses</Button>
                     </Link>
-                    <Button type='default' href='#category'>Join Us on Telegram</Button>
+                    <Button type='default' href='https://t.me/CareerClimbers' target='_blank'>Join Us on Telegram</Button>
                 </Space>
             </div>
         </div>

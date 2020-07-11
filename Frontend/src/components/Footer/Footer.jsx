@@ -16,7 +16,7 @@ export default function Footer() {
                     <p>
                         We have a great community on Telegram where we have bunch of free courses, certifications and other resources uploaded daily ! 
                     </p>
-                    <Button type='primary' size='large'>
+                    <Button type='primary' size='large' href='https://t.me/CareerClimbers' target='_blank'>
                         Join us on Telegram
                     </Button>
                 </Col>
@@ -27,7 +27,7 @@ export default function Footer() {
                     <Col md={8} sm={24}>
                         <h4>About Us</h4>
                         <p className='mb-4'>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                            We are trying to help students to excel in their career by providing useful resources.
                         </p>
                         <h4>Contact Us</h4>
                         <p>

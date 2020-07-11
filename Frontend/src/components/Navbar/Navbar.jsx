@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 
 import {Button, Input, Typography, Dropdown, Menu} from 'antd'
@@ -9,25 +9,34 @@ const {Text} = Typography
 
 const categories = ['Web Development', 'Frontend', 'Backend', 'Machine Learning']
 
-const menu = (
-    <Menu>
-        <Menu.ItemGroup title="Categories">
-            {
-                categories.map(text => (
-                    <Menu.Item key={text}>
-                        <Link to={`/courses?q=${text}`}>{text}</Link>
-                    </Menu.Item>
-                ))
-            }
-        </Menu.ItemGroup>
-    </Menu>
-) 
 
 export default withRouter((props) => {
-    
+
+    const [collapsed, handleCollapse] = useState(true)
+
     const handleSearch = (v, e) => {
         props.history.push(`/courses?q=${v}`)
     } 
+
+    const handleCollapsed = () => {
+        console.log('collapse tooglel')
+        handleCollapse(!collapsed)
+    }
+
+
+    const menu = (props) => (
+        <Menu>
+            <Menu.ItemGroup title="Categories">
+                {
+                    categories.map(text => (
+                        <Menu.Item key={text} onClick={handleCollapsed}>
+                            <Link to={`/courses?q=${text}`}>{text}</Link>
+                        </Menu.Item>
+                    ))
+                }
+            </Menu.ItemGroup>
+        </Menu>
+    ) 
 
     return (
         <>
@@ -39,13 +48,14 @@ export default withRouter((props) => {
                         </Link>
                     </div>
 
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" onClick={handleCollapsed} data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse" id="navbarText">
+                    <div className={`navbar-collapse ${collapsed ? 'collapse' : 'collapse show'}`} id="navbarText">
 
-                        <Search placeholder='Search Courses...' size='large' enterButton className='search mx-auto' onSearch={handleSearch} allowClear/>
+                        <Search placeholder='Search Courses...' size='large' enterButton className='search mx-auto' 
+                        onSearch={(v,e) => {handleSearch(v,e); handleCollapsed()}} allowClear/>
 
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
@@ -55,11 +65,11 @@ export default withRouter((props) => {
                                     </span>
                                 </Dropdown>
                             </li>
-                            <li className="nav-item active">
-                                <Link className="nav-link" onClick={handleSearch}><Text strong>Courses</Text></Link>
+                            <li className="nav-item" onClick={handleCollapsed}>
+                                <Link className="nav-link" ><Text strong>Courses</Text></Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link " to="/"><Button type='primary' size='large'>Join on Telegram</Button></Link>
+                            <li className="nav-item" onClick={handleCollapsed}>
+                                <Button type='primary' size='large' href='https://t.me/CareerClimbers' target='_blank'>Join on Telegram</Button>
                             </li>
                         </ul>
                     </div>
