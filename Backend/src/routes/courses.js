@@ -159,7 +159,7 @@ router.post('/course/multiple/create', async (req, res) => {
     var { links } = req.body;
     var promises = []
     for(link of links) {
-        promises.push(await axios.post('http://localhost:5000/api/course/create', {link}))
+        promises.push(await axios.post(`http://localhost:${process.env.PORT || 5000}/api/course/create`, {link}))
     }
     try {
         var response = await Promise.all(promises)

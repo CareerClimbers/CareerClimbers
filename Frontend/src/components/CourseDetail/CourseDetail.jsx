@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import {Helmet} from 'react-helmet'
 import parse from 'html-react-parser'
 
 import {Rate, Skeleton, Tag, Button, Typography, Row, Col, Space} from 'antd'
@@ -30,7 +31,9 @@ export default function CourseDetail() {
 
     return (
         <>
-        
+            <Helmet>
+                <title>{`${course.title} | Career Climber`}</title>
+            </Helmet>
                 <div className='container main'>
                     <Skeleton loading={loading} size='large' active>
                     <Row gutter={[32,32]}>
