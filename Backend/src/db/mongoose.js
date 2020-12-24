@@ -6,4 +6,4 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
-mongoose.connect('mongodb://admin:admin123@ds249873.mlab.com:49873/careerclimbers');
+mongoose.connect('mongodb+srv://admin:admin123@cluster0.bypkg.mongodb.net/courses?retryWrites=true&w=majority');
