@@ -1,0 +1,29 @@
+{
+  "name": "career",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "npm start --prefix Frontend",
+    "backend" : "npm start --prefix Backend",
+    "dev" : "concurrently \"npm run frontend\" \"npm run backend\"",
+    "start": "cd Backend && npm install && npm start",
+    "build" : "cd Frontend && npm run build",
+    "heroku-postbuild": "cd Frontend && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RavenColEvol/CareerClimbers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/RavenColEvol/CareerClimbers/issues"
+  },
+  "homepage": "https://github.com/RavenColEvol/CareerClimbers#readme"
+}
